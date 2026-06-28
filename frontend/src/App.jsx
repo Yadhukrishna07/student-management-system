@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css';
 import StudentForm from './components/StudentForm';
 import StudentList from './components/StudentList';
 
 function App() {
   const [students, setStudents] = useState([]);
 
-  // Fetch all students when the component first loads
   useEffect(() => {
     fetchStudents();
   }, []);
@@ -20,16 +20,19 @@ function App() {
     }
   };
 
-  // Called by StudentForm after a successful add
   const handleStudentAdded = (newStudent) => {
     setStudents((prevStudents) => [newStudent, ...prevStudents]);
   };
 
+  const handleStudentDeleted = (deletedId) => {
+    setStudents((prevStudents) => prevStudents.filter((student) => student._id !== deletedId));
+  };
+
   return (
-    <div style={{ maxWidth: '800px', margin: '0 auto', padding: '2rem' }}>
+    <div className="app-container">
       <h1>Student Management System</h1>
       <StudentForm onStudentAdded={handleStudentAdded} />
-      <StudentList students={students} />
+      <StudentList students={students} onStudentDeleted={handleStudentDeleted} />
     </div>
   );
 }

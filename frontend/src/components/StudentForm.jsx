@@ -16,12 +16,12 @@ function StudentForm({ onStudentAdded }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // stops the page from refreshing on submit
+    e.preventDefault();
 
     try {
       const response = await axios.post('http://localhost:5000/api/students', formData);
-      onStudentAdded(response.data); // tell the parent (App.jsx) a new student was added
-      setFormData({ name: '', email: '', course: '' }); // clear the form
+      onStudentAdded(response.data);
+      setFormData({ name: '', email: '', course: '' });
     } catch (error) {
       console.error('Error adding student:', error);
       alert('Failed to add student. Check the console for details.');
@@ -29,11 +29,11 @@ function StudentForm({ onStudentAdded }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
+    <form onSubmit={handleSubmit} className="student-form">
       <h2>Add New Student</h2>
 
-      <div>
-        <label>Name: </label>
+      <div className="form-group">
+        <label>Name</label>
         <input
           type="text"
           name="name"
@@ -43,8 +43,8 @@ function StudentForm({ onStudentAdded }) {
         />
       </div>
 
-      <div>
-        <label>Email: </label>
+      <div className="form-group">
+        <label>Email</label>
         <input
           type="email"
           name="email"
@@ -54,8 +54,8 @@ function StudentForm({ onStudentAdded }) {
         />
       </div>
 
-      <div>
-        <label>Course: </label>
+      <div className="form-group">
+        <label>Course</label>
         <input
           type="text"
           name="course"
@@ -65,7 +65,7 @@ function StudentForm({ onStudentAdded }) {
         />
       </div>
 
-      <button type="submit">Add Student</button>
+      <button type="submit" className="submit-btn">Add Student</button>
     </form>
   );
 }
